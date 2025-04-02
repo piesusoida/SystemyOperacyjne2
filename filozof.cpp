@@ -50,7 +50,7 @@ int main(){
     }
     vector < Fork > forks(number_of_philosophers);
     vector < thread > philosophers;
-    for(int i=0;i<number_of_philosophers;i++){        //creating threads, full lock is prevented by random time of thinking and numeration of forks
+    for(int i=0;i<number_of_philosophers;i++){        //creating threads, deadlock is prevented by random time of thinking and numeration of forks
         forks[i].fork_position.first=i;
         forks[i].fork_position.second=(i+1)%number_of_philosophers;
         philosophers.push_back(thread(philosopher, i, ref(forks)));
