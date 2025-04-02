@@ -86,7 +86,7 @@ jobs:
         
         # Compile the C++ project using g++
         echo "Building C++ project with g++..."
-        g++ -std=c++11 -o philosophers main.cpp -pthread
+        g++ -std=c++11 -o philosophers filozof.cpp -pthread
         
         # Make sure the build succeeded
         if [ $? -eq 0 ]; then
