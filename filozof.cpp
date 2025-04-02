@@ -8,25 +8,35 @@
 using namespace std;
 
 struct Fork{
-    pair <int, int> fork_position; // position on the table
+    pair <int, int> fork_position; // gdzie jest na stole
     mutex used;
 };
 
 void philosopher(int id, vector <Fork>& forks) {
     int thinking_time;
+    int fork_lower;
+    int fork_higher;
+    if (forks[id].fork_position.first < forks[id].fork_position.second){ // enumerating the forks to prevent deadlock
+        fork_lower = forks[id].fork_position.first;
+        fork_higher = forks[id].fork_position.second;
+    }
+    else{
+        fork_higher = forks[id].fork_position.first;
+        fork_lower = forks[id].fork_position.second;
+    }
     while (true) {
         thinking_time = rand() % 1801 + 200;
         cout << "Philosopher " << id << " is thinking" << endl;
         this_thread::sleep_for(chrono::milliseconds(thinking_time));  
 
-        unique_lock<mutex> lockLeft(forks[forks[id].fork_position.first].used); //picking up left fork
+        unique_lock<mutex> lockLeft(forks[fork_lower].used); //podniesienie lewego widelca
 
-        unique_lock<mutex> lockRight(forks[forks[id].fork_position.second].used); // picking up right fork
+        unique_lock<mutex> lockRight(forks[fork_higher].used); // podniesienie prawego widelca
 
         cout << "Philosopher " << id << " is eating" << endl;
         this_thread::sleep_for(chrono::milliseconds(1000)); 
 
-        lockLeft.unlock(); // giving back the forks
+        lockLeft.unlock(); // oddanie widelcow
         lockRight.unlock();
 
         cout << "Philosopher " << id << " is full, he starts wasting time thinking" << endl;;
@@ -50,7 +60,7 @@ int main(){
     }
     vector < Fork > forks(number_of_philosophers);
     vector < thread > philosophers;
-    for(int i=0;i<number_of_philosophers;i++){        //creating threads, deadlock is prevented by random time of thinking and numeration of forks
+    for(int i=0;i<number_of_philosophers;i++){        //creating threads, full lock is prevented by random time of thinking and 
         forks[i].fork_position.first=i;
         forks[i].fork_position.second=(i+1)%number_of_philosophers;
         philosophers.push_back(thread(philosopher, i, ref(forks)));
