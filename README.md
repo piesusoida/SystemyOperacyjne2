@@ -28,6 +28,8 @@ Działanie programu:
 6. zapewnienie synchronizacji
 7. program nie ma warunku końcowego
 
+Do uruchomienia:
+
 Projekt 2: Wielowątkowy chat w architekturze klient serwer
 
 Problem wielowątkowego chatu polega na stworzeniu serwera, który będzie obsługiwał komunikaty od wielu użytkowników jednocześnie i zapewniał ich działanie.
@@ -51,3 +53,7 @@ Działanie programu:
 9. Serwer jest blokowany, wiadomość jest wykryta na serwerze
 10. Serwer wysyła broadcast
 11. Klienci odbierają wiadomość wątkiem odbierania wiadomości
+
+Do uruchomienia:
+- python server.py
+- w innym terminalu client.py
