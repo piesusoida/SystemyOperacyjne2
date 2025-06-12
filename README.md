@@ -29,7 +29,8 @@ Działanie programu:
 7. program nie ma warunku końcowego
 
 Do uruchomienia:
-
+-g++ -std=c++11 -pthread -o filozofowie filozofowie.cpp
+- ./filozofowie
 Projekt 2: Wielowątkowy chat w architekturze klient serwer
 
 Problem wielowątkowego chatu polega na stworzeniu serwera, który będzie obsługiwał komunikaty od wielu użytkowników jednocześnie i zapewniał ich działanie.
