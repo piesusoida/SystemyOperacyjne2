@@ -27,3 +27,27 @@ Działanie programu:
 5. stworzenie wątków
 6. zapewnienie synchronizacji
 7. program nie ma warunku końcowego
+
+Projekt 2: Wielowątkowy chat w architekturze klient serwer
+
+Problem wielowątkowego chatu polega na stworzeniu serwera, który będzie obsługiwał komunikaty od wielu użytkowników jednocześnie i zapewniał ich działanie.
+W problemie zdefiniowany jest serwer oraz klienci. Jest jeden serwer i dowolna liczba klientów. Serwer przyjmuje wiadomości od klientów i broadcastuje je do wszystkich klientów. Klient dołącza do serwera i ma możliwość wysyłania wiadomości oraz wyświetlenia wiadomości broadcastowanych.
+
+Wątkami są klienci.
+
+Sekcją krytyczną jest serwer. W problemie występuje wyścig o kolejność przesłania wiadomości. Klient blokuje wysyłanie wiadomości innym wątkom do czasu zakończenia procedury przesłania wiadomości.
+
+Dodatkowo klient też jest podzielony na dwa wątki, do wysyłania wiadomości oraz do odbierania wiadomości z broadcastu. 
+
+Działanie programu:
+1. Uruchomienie server.py (python server.py)
+2. Serwer tworzy się na porcie
+3. Uruchomienie client.py (python client.py)
+4. Serwer wykrywa nowego klienta i tworzy dla niego wątek
+5. Klient tworzy wątek odbierania informacji od serwera
+6. Klient tworzy wątek wysyłania wiadomości na serwer
+7. Jeśli ma być więcej klientów powrócić do kroku 3
+8. Klient wysyła wiadomość
+9. Serwer jest blokowany, wiadomość jest wykryta na serwerze
+10. Serwer wysyła broadcast
+11. Klienci odbierają wiadomość wątkiem odbierania wiadomości
